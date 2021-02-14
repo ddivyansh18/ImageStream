@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
 
-const url = "http://memestreamdd.herokuapp.com/memes"
+const url = "https://memestreamdd.herokuapp.com/memes"
 let body = {};
 
 async function PostMeme(body) {

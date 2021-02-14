@@ -35,7 +35,7 @@ class EditMeme extends Component {
     const { id, url, caption } = this.state
 
     this.setState({ submittedId: id, submittedUrl: url, submittedCaption: caption })
-    postUrl = "http://memestreamdd.herokuapp.com/memes/" + id
+    postUrl = "https://memestreamdd.herokuapp.com/memes/" + id
     console.log("PATCHING", postUrl)
     console.log(body);
     PostMeme(body, postUrl).then(res => {

@@ -2,10 +2,10 @@ import { Button, Card, Icon, Image, Label } from 'semantic-ui-react'
 
 
 const fetch = require("node-fetch")
-const url = "http://memestreamdd.herokuapp.com/all"
+const url = "https://memestreamdd.herokuapp.com/all"
 
 async function likeMeme(id) {
-  const likeUrl = "http://memestreamdd.herokuapp.com/memes/like/" + id
+  const likeUrl = "https://memestreamdd.herokuapp.com/memes/like/" + id
   const response = await fetch(likeUrl, {
         method: 'POST',
         mode: 'cors',
