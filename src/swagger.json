@@ -1,0 +1,327 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Sandbox server (uses test data)"
+    }
+  ],
+  "info": {
+    "title": "Meme Stream",
+    "version": "1.0.0",
+    "description": "1. Meme Stream is a webpage where users can post memes by providing their name a caption for the meme and the URL for the meme image as input.\n2. Meme Stream supports many APIs for utilising these functionalities.\n3. These API are categorised as per their importance in the project specification.",
+    "contact": {
+      "name": "Divyansh Dixit",
+      "email": "ddivyansh18@gmail.com"
+    }
+  },
+  "paths": {
+    "/memes/{id}": {
+      "get": {
+        "tags": [
+          "Mandatory API"
+        ],
+        "description": "Fetch the id, name, url, caption of the meme having id same as in the parameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the post to fetch details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Meme id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "User who posted the meme"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "URL to fetch the meme image"
+                    },
+                    "caption": {
+                      "type": "string",
+                      "description": "Description of the image"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Optional API"
+        ],
+        "description": "Update either url or caption or both url and caption of a meme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the post to update"
+          }
+        ],
+        "requestBody": {
+          "description": "Provide the new url and caption of the meme, the API is capable of updating one of the url or caption if the other one is not provided.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The new url of the meme"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "description": "The new caption of the meme"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/memes": {
+      "get": {
+        "tags": [
+          "Mandatory API"
+        ],
+        "description": "Fetch the latest 100 memes",
+        "responses": {
+          "200": {
+            "description": "Array of JSON objects having details of latest 100 memes",
+            "content": {
+              "array": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Meme id"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "User who posted the meme"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "URL to fetch the meme image"
+                      },
+                      "caption": {
+                        "type": "string",
+                        "description": "Description of the image"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mandatory API"
+        ],
+        "description": "Add a new meme by providing its image url, caption and name of the user who created the meme, returns a id of the created meme",
+        "requestBody": {
+          "description": "Provide the name, url and caption in the specified format",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The new url of the meme"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "The new url of the meme"
+                  },
+                  "caption": {
+                    "type": "string",
+                    "description": "The new caption of the meme"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "description": "Meme id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/memes/like/{id}": {
+      "post": {
+        "tags": [
+          "Additional API"
+        ],
+        "description": "Increases the like count a meme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the post to like"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post liked"
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Additional API"
+        ],
+        "description": "Returns the like count a meme",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Numeric ID of the post to like"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "likes": {
+                      "type": "integer",
+                      "description": "Meme id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/all": {
+      "get": {
+        "tags": [
+          "Additional API"
+        ],
+        "description": "Fetch the latest 100 memes with all details",
+        "responses": {
+          "200": {
+            "description": "Array of JSON objects having all details of latest 100 memes",
+            "content": {
+              "array": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Meme id"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "User who posted the meme"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "URL to fetch the meme image"
+                      },
+                      "caption": {
+                        "type": "string",
+                        "description": "Description of the image"
+                      },
+                      "likes": {
+                        "type": "integer",
+                        "description": "No. of likes on this meme"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error"
+          }
+        }
+      }
+    }
+  }
+}
