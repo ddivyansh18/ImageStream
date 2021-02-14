@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "servers": [
     {
-      "url": "http://localhost:8080",
-      "description": "Sandbox server (uses test data)"
+      "url": "https://memestreamdd.herokuapp.com/",
+      "description": Production server"
     }
   ],
   "info": {
